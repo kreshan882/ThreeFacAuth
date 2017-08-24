@@ -9,13 +9,69 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="3 Factor Authondication"
+        android:text="Three Factor Authentication"
         android:textColor="@color/colorAccent"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.176" />
+        app:layout_constraintVertical_bias="0.032"
+        app:layout_constraintHorizontal_bias="0.098" />
+
+    <EditText
+        android:id="@+id/editText3_un"
+        android:layout_width="198dp"
+        android:layout_height="41dp"
+        android:ems="10"
+        android:hint="admin"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="107dp"
+        tools:layout_editor_absoluteY="125dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="63dp"
+        android:layout_height="35dp"
+        android:text="Username"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="125dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="72dp"
+        android:layout_height="39dp"
+        android:text="Password"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="199dp" />
+
+    <EditText
+        android:id="@+id/editText4_pw"
+        android:layout_width="196dp"
+        android:layout_height="44dp"
+        android:ems="10"
+        android:hint="1234"
+        android:inputType="number"
+        tools:layout_editor_absoluteX="108dp"
+        tools:layout_editor_absoluteY="194dp" />
+
+    <TextView
+        android:id="@+id/textView3_res"
+        android:layout_width="292dp"
+        android:layout_height="28dp"
+        android:text="result"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="49dp" />
+
+
+
+    <Button
+        android:id="@+id/button2_sub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onButtonClick"
+        android:text="Button"
+        tools:layout_editor_absoluteX="137dp"
+        tools:layout_editor_absoluteY="361dp" />
 
 </android.support.constraint.ConstraintLayout>
