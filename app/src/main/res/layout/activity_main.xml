@@ -56,7 +56,7 @@
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/face"
+                        android:id="@+id/radioButton_face"
                         android:text="Face"
                         android:textSize="18dp"
                         android:checked="false"/>
@@ -64,7 +64,7 @@
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/finger"
+                        android:id="@+id/radioButton_finger"
                         android:text="Finger"
                         android:textSize="18dp"
                         android:checked="false"/>
