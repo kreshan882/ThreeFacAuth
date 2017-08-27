@@ -1,77 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="mcs.kreshan.threefacauth.MainActivity">
+    android:paddingTop="56dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:background="@color/bluek"
+    >
 
-    <TextView
+    <ImageView
+        android:src="@mipmap/ucsc"
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="72dp"
+        android:layout_gravity="center_horizontal"
+         />
+
+    <EditText
+        android:id="@+id/input_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="25dp"
+        android:hint="Name"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/whitek"/>
+
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Three Factor Authentication"
-        android:textColor="@color/colorAccent"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.032"
-        app:layout_constraintHorizontal_bias="0.098" />
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BioType"
+            android:textSize="18dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/radioGroup">
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/face"
+                        android:text="Face"
+                        android:textSize="18dp"
+                        android:checked="false"/>
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/finger"
+                        android:text="Finger"
+                        android:textSize="18dp"
+                        android:checked="false"/>
+
+                </RadioGroup>
+
+            </LinearLayout>
+    </LinearLayout>
 
     <EditText
-        android:id="@+id/editText3_un"
-        android:layout_width="198dp"
-        android:layout_height="41dp"
-        android:ems="10"
-        android:hint="admin"
-        android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="107dp"
-        tools:layout_editor_absoluteY="125dp" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="63dp"
-        android:layout_height="35dp"
-        android:text="Username"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="125dp" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="72dp"
-        android:layout_height="39dp"
-        android:text="Password"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="199dp" />
-
-    <EditText
-        android:id="@+id/editText4_pw"
-        android:layout_width="196dp"
-        android:layout_height="44dp"
-        android:ems="10"
-        android:hint="1234"
-        android:inputType="number"
-        tools:layout_editor_absoluteX="108dp"
-        tools:layout_editor_absoluteY="194dp" />
-
-    <TextView
-        android:id="@+id/textView3_res"
-        android:layout_width="292dp"
-        android:layout_height="28dp"
-        android:text="result"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="49dp" />
-
-
+        android:id="@+id/input_password"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="25dp"
+        android:hint="Password"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/whitek"/>
 
     <Button
-        android:id="@+id/button2_sub"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onButtonClick"
-        android:text="Button"
-        tools:layout_editor_absoluteX="137dp"
-        tools:layout_editor_absoluteY="361dp" />
-
-</android.support.constraint.ConstraintLayout>
+        android:layout_marginTop="24dp"
+        android:text="Login"
+        android:id="@+id/button_login"
+        />
+</LinearLayout>

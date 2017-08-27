@@ -4,12 +4,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnTouchListener, View.OnClickListener{
     public static final String LOG_CLASS="MainActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,15 +19,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.i(LOG_CLASS,"onCreate");
 
 
-        final Button button = (Button) findViewById(R.id.button2_sub);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.i(LOG_CLASS,"onClick");
-                // Code here executes on main thread after user presses button
-            }
-        });
+
     }
 
+
+    public void onButtonClick(View view) {
+        TextView res=(TextView) findViewById(R.id.button_login);
+        res.setText("sucess login");
+        Log.i(LOG_CLASS,"onButtonClick");
+    }
+
+    @Override
+    public void onClick(View view) {
+        Log.i(LOG_CLASS,"onclickkkkkkkkkkk0");
+        if (view.getId() == R.id.button_login) {
+
+            Log.i(LOG_CLASS,"onclickkkkkkkkkkk1");
+//            userName = txtUsername.getText().toString();
+//            password = txtPassword.getText().toString();
+//
+//            if(userName.length() == 0 || password.length() == 0){
+//                lay_empty.setVisibility(View.VISIBLE);
+//            }
+//            else{
+//                lay_empty.setVisibility(View.INVISIBLE);
+//                if(CommonMethod.getInstance().isOnline(this)) {
+//                    LoginRequest();
+//                }else
+//                    CommonMethod.getInstance().networkEnabledialog(this);
+//            }
+        }
+    }
 //    Button clickButton = (Button) findViewById(R.id.button2_sub);
 //
 //        clickButton.setOnClickListener( new View.OnClickListener() {
@@ -91,9 +114,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onClick(View v) {
-        Log.i(LOG_CLASS,"fuckkkkk");
+    public boolean onTouch(View v, MotionEvent event) {
+        return false;
     }
+
 
 //    @Override
 //    public void onClick(View v) {

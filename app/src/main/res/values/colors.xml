@@ -3,4 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="redk">#ff5340</color>
+    <color name="bluek">#7b92de</color>
+    <color name="blackk">#000206</color>
+    <color name="whitek">#ffffff</color>
+
 </resources>
