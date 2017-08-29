@@ -5,13 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -54,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 if(un.equals("a")&& pw.equals("b")){
                     Toast.makeText(MainActivity.this,"please give your:"+rBut,Toast.LENGTH_LONG).show();
 
-                    startActivity(new Intent(MainActivity.this, FingerPrintLoad.class));
+                    startActivity(new Intent(MainActivity.this, FingerPrintActivity.class));
                 }else{
                     Toast.makeText(MainActivity.this,"login error try a,b",Toast.LENGTH_LONG).show();
                 }
