@@ -1,21 +1,35 @@
 package mcs.kreshan.threefacauth;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.Manifest.permission.BLUETOOTH;
+import static android.Manifest.permission.CAMERA;
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.READ_PHONE_STATE;
 
 public class MainActivity extends AppCompatActivity {
     public static final String LOG_CLASS="MainActivity";
+    public static final int RequestPermissionCode = 7;
+    public  String imeiNumber;
     Button but;
-    EditText uName;
+    TextView imei;
     EditText pWord;
 
     RadioButton rb1;
@@ -29,13 +43,17 @@ public class MainActivity extends AppCompatActivity {
         Log.i(LOG_CLASS,"onCreate");
 
         but=(Button)findViewById(R.id.button_login);
-        uName=(EditText)findViewById(R.id.input_name);
+        imei=(TextView)findViewById(R.id.input_name);
         pWord=(EditText)findViewById(R.id.input_password);
         rb1=(RadioButton) findViewById(R.id.radioButton_face);
         rb2=(RadioButton) findViewById(R.id.radioButton_finger);
         rg=(RadioGroup) findViewById(R.id.radioGroup);
 
-
+        if(!CheckingPermissionIsEnabled(this))
+            RequestMultiplePermission();
+        else {
+            getImeiNumber();
+        }
 
 
         but.setOnClickListener(new View.OnClickListener() {
@@ -43,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.i(LOG_CLASS,"onButtonClick");
 
-                String un=uName.getText().toString();
+                String un=imei.getText().toString();
                 String pw=pWord.getText().toString();
                 RadioButton radBut=(RadioButton)findViewById(rg.getCheckedRadioButtonId());
                 String rBut=radBut.getText().toString();
@@ -123,7 +141,41 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    private void RequestMultiplePermission() {
+        ActivityCompat.requestPermissions(MainActivity.this, new String[]
+                {
+                        READ_PHONE_STATE
+                }, RequestPermissionCode);
 
+    }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
 
+            case RequestPermissionCode:
+                if (grantResults.length > 0) {
+                    boolean ReadPhoneStatus         = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+
+                    if (ReadPhoneStatus) {
+                        // Toast.makeText(RegistrationActivity.this, "Permission Granted", Toast.LENGTH_LONG).show();
+                       getImeiNumber();
+                    }else{
+                        RequestMultiplePermission();
+                    }
+                }
+                break;
+        }
+    }
+
+    public void getImeiNumber(){
+        TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        imeiNumber = tm.getDeviceId();
+        imei.setText(imeiNumber);
+    }
+
+    public boolean CheckingPermissionIsEnabled(Context context) {
+        int FirstPermissionResult  = ContextCompat.checkSelfPermission(context.getApplicationContext(), READ_PHONE_STATE);
+        return FirstPermissionResult   == PackageManager.PERMISSION_GRANTED ;
+    }
 }

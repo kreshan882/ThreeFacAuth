@@ -19,12 +19,12 @@
         android:layout_gravity="center_horizontal"
          />
 
-    <EditText
+    <TextView
         android:id="@+id/input_name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:hint="Imei"
+        android:hint="Imei Number"
         android:paddingTop="25dp"
         android:textColor="@color/whitek" />
 
@@ -79,10 +79,17 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingTop="25dp"
-        android:hint="Password"
+        android:hint="Passcoce"
         android:layout_gravity="center_horizontal"
         android:textColor="@color/whitek"/>
-
+    <EditText
+        android:id="@+id/input_password_re"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="25dp"
+        android:hint="Re Passcoce"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/whitek"/>
     <Button
         android:id="@+id/button_login"
         android:layout_width="match_parent"
