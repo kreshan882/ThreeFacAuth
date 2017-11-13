@@ -23,10 +23,10 @@
         android:id="@+id/input_name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="25dp"
-        android:hint="Name"
         android:layout_gravity="center_horizontal"
-        android:textColor="@color/whitek"/>
+        android:hint="Imei"
+        android:paddingTop="25dp"
+        android:textColor="@color/whitek" />
 
 
     <LinearLayout
@@ -84,10 +84,9 @@
         android:textColor="@color/whitek"/>
 
     <Button
+        android:id="@+id/button_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Login"
-        android:id="@+id/button_login"
-        />
+        android:text="Login" />
 </LinearLayout>
