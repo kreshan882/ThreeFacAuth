@@ -30,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
     public  String imeiNumber;
     Button but;
     TextView imei;
-    EditText pWord;
+    EditText pCode;
+    EditText pCodeRe;
 
     RadioButton rb1;
     RadioButton rb2;
@@ -44,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
 
         but=(Button)findViewById(R.id.button_login);
         imei=(TextView)findViewById(R.id.input_name);
-        pWord=(EditText)findViewById(R.id.input_password);
+        pCode=(EditText)findViewById(R.id.input_password);
+        pCodeRe=(EditText)findViewById(R.id.input_password_re);
         rb1=(RadioButton) findViewById(R.id.radioButton_face);
         rb2=(RadioButton) findViewById(R.id.radioButton_finger);
         rg=(RadioGroup) findViewById(R.id.radioGroup);
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.i(LOG_CLASS,"onButtonClick");
 
                 String un=imei.getText().toString();
-                String pw=pWord.getText().toString();
+                String pw=pCode.getText().toString();
                 RadioButton radBut=(RadioButton)findViewById(rg.getCheckedRadioButtonId());
                 String rBut=radBut.getText().toString();
 
@@ -140,17 +142,25 @@ public class MainActivity extends AppCompatActivity {
         Log.i(LOG_CLASS, "On Stop .....");
     }
 
+    public boolean CheckingPermissionIsEnabled(Context context) {
+        int FirstPermissionResult  = ContextCompat.checkSelfPermission(context.getApplicationContext(), READ_PHONE_STATE);
+        return FirstPermissionResult   == PackageManager.PERMISSION_GRANTED ;
+    }
 
     private void RequestMultiplePermission() {
-        ActivityCompat.requestPermissions(MainActivity.this, new String[]
-                {
-                        READ_PHONE_STATE
-                }, RequestPermissionCode);
+        ActivityCompat.requestPermissions(MainActivity.this, new String[]{
+                READ_PHONE_STATE}, RequestPermissionCode);
+    }
 
+    public void getImeiNumber(){
+        TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        imeiNumber = tm.getDeviceId();
+        imei.setText(imeiNumber);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        Log.i(LOG_CLASS, "on RequestPermissionsResult .....");
         switch (requestCode) {
 
             case RequestPermissionCode:
@@ -168,14 +178,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void getImeiNumber(){
-        TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        imeiNumber = tm.getDeviceId();
-        imei.setText(imeiNumber);
-    }
 
-    public boolean CheckingPermissionIsEnabled(Context context) {
-        int FirstPermissionResult  = ContextCompat.checkSelfPermission(context.getApplicationContext(), READ_PHONE_STATE);
-        return FirstPermissionResult   == PackageManager.PERMISSION_GRANTED ;
-    }
+
+
 }

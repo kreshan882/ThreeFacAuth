@@ -1,6 +1,6 @@
 <resources>
 
-    <!-- Base application theme. -->
+    <!-- Base application theme. already haven-->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -8,4 +8,198 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="MyMaterialTheme" parent="MyMaterialTheme.Base">
+
+    </style>
+
+    <style name="NoActionBarAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <!-- colorPrimaryDark is used for the status bar -->
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!-- colorAccent is used as the default value for colorControlActivated
+             which is used to tint widgets -->
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+    </style>
+
+
+    <style name="MyMaterialTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="Topic">
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textSize">@dimen/txtTopic</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Button">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@xml/button_bg</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:layout_height">@dimen/btn_height</item>
+        <item name="android:textSize">@dimen/txtButton</item>
+    </style>
+
+    <style name="Label">
+        <item name="android:textColor">@color/lbl_color</item>
+        <item name="android:textSize">@dimen/text_size18</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="LabelLeft">
+        <item name="android:textColor">@color/lbl_color</item>
+        <item name="android:textSize">@dimen/text_size18</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">@dimen/padding2</item>
+    </style>
+
+    <style name="TextInputLayout">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="DisabledTextView">
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:textSize">@dimen/text_size18</item>
+        <item name="android:padding">@dimen/padding1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@xml/custom_border</item>
+    </style>
+
+    <style name="CustomEditText">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">@dimen/text_size18</item>
+    </style>
+
+    <style name="CustomEditText3">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/text_size18</item>
+    </style>
+
+    <style name="TableText">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">@dimen/text_size18</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CustomEditText2">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/text_size18</item>
+        <item name="android:padding">@dimen/padding1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@xml/custom_border</item>
+    </style>
+
+    <style name="alert_dialog" parent="android:Theme.Dialog">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.4</item>
+    </style>
+
+    <style name="AlertDialogTheme">
+        <item name="android:windowEnterAnimation">@anim/modal_in</item>
+        <item name="android:windowExitAnimation">@anim/modal_out</item>
+    </style>
+
+    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
+    </style>
+
+    <style name="NoActionBarAppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="NoActionBarAppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+    <!--<style name="CustomTabLayout" parent="Widget.Design.TabLayout">-->
+        <!--<item name="tabMaxWidth">@dimen/btn_width</item>-->
+        <!--<item name="tabIndicatorColor">?attr/colorAccent</item>-->
+        <!--<item name="tabIndicatorHeight">2dp</item>-->
+        <!--<item name="tabPaddingStart">@dimen/padding2</item>-->
+        <!--<item name="tabPaddingEnd">@dimen/padding2</item>-->
+        <!--<item name="tabBackground">?attr/selectableItemBackground</item>-->
+        <!--<item name="tabTextAppearance">@style/CustomTabTextAppearance</item>-->
+        <!--<item name="tabSelectedTextColor">@color/colorPrimary</item>-->
+    <!--</style>-->
+
+    <!--<style name="CustomTabTextAppearance" parent="TextAppearance.Design.Tab">-->
+        <!--<item name="android:textColor">?android:textColorSecondary</item>-->
+        <!--<item name="textAllCaps">true</item>-->
+    <!--</style>-->
+
+
+    <declare-styleable name="CircleIndicator">
+        <attr name="ci_width" format="dimension" />
+        <attr name="ci_height" format="dimension" />
+        <attr name="ci_margin" format="dimension" />
+        <attr name="ci_animator" format="reference" />
+        <attr name="ci_animator_reverse" format="reference" />
+        <attr name="ci_drawable" format="reference" />
+        <attr name="ci_drawable_unselected" format="reference" />
+        <attr name="ci_orientation" format="enum">
+
+            <enum name="horizontal" value="0" />
+
+            <enum name="vertical" value="1" />
+        </attr>
+        <attr name="ci_gravity">
+
+            <flag name="top" value="0x30" />
+
+            <flag name="bottom" value="0x50" />
+
+            <flag name="left" value="0x03" />
+
+            <flag name="right" value="0x05" />
+
+            <flag name="center_vertical" value="0x10" />
+
+            <flag name="fill_vertical" value="0x70" />
+
+            <flag name="center_horizontal" value="0x01" />
+
+            <flag name="fill_horizontal" value="0x07" />
+
+            <flag name="center" value="0x11" />
+
+            <flag name="fill" value="0x77" />
+
+            <flag name="clip_vertical" value="0x80" />
+
+            <flag name="clip_horizontal" value="0x08" />
+
+            <flag name="start" value="0x00800003" />
+
+            <flag name="end" value="0x00800005" />
+        </attr>
+    </declare-styleable>
 </resources>

@@ -8,4 +8,20 @@
     <color name="blackk">#000206</color>
     <color name="whitek">#ffffff</color>
 
+
+
+    <color name="colorPrimaryLight">#0f6642</color>
+
+    <color name="green">#378901</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="lbl_color">#000000</color>
+    <color name="gray">#d6d5d5</color>
+    <color name="textColor">#787777</color>
+
+    <color name="cardColor1">#e5eeea</color>
+    <color name="cardColor2">#f2f6f5</color>
+    <color name="red">#FFB10505</color>
+
+    <color name="topic_background">#f1f1f1</color>
 </resources>

@@ -1,0 +1,74 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+
+    <dimen name="header_padding">0dp</dimen>
+
+    <dimen name="padding1">8dp</dimen>
+    <dimen name="padding2">12dp</dimen>
+    <dimen name="padding3">20dp</dimen>
+    <dimen name="padding4">20dp</dimen>
+    <dimen name="padding5">25dp</dimen>
+
+    <dimen name="margin1">10dp</dimen>
+    <dimen name="margin2">15dp</dimen>
+
+    <dimen name="txtTopic">22sp</dimen>
+    <dimen name="txtsubTopic">13sp</dimen>
+    <dimen name="txtEditText">12sp</dimen>
+    <dimen name="txtHint">10sp</dimen>
+    <dimen name="txtButton">14sp</dimen>
+
+    <dimen name="text_size10">8sp</dimen>
+    <dimen name="text_size12">10sp</dimen>
+    <dimen name="text_size14">12sp</dimen>
+    <dimen name="text_size15">14sp</dimen>
+    <dimen name="text_size16">12sp</dimen>
+    <dimen name="text_size18">14sp</dimen>
+    <dimen name="text_size20">16sp</dimen>
+    <dimen name="text_size22">14sp</dimen>
+    <dimen name="text_size24">20sp</dimen>
+    <dimen name="text_size26">20sp</dimen>
+    <dimen name="text_size28">26sp</dimen>
+    <dimen name="text_size30">28sp</dimen>
+    <dimen name="text_size32">26sp</dimen>
+    <dimen name="text_size40">34sp</dimen>
+    <dimen name="text_size50">38sp</dimen>
+
+    <dimen name="editText_width">190sp</dimen>
+    <dimen name="editText_width2">220sp</dimen>
+    <dimen name="textView_width">150sp</dimen>
+
+    <dimen name="text_field_height">48dp</dimen>
+    <dimen name="button_margin_left">5dp</dimen>
+    <dimen name="button_layer">22dp</dimen>
+
+    <dimen name="divider_height">55dp</dimen>
+    <dimen name="nexticon_height">20dp</dimen>
+    <dimen name="btn_width">250dp</dimen>
+    <dimen name="btn_height">45dp</dimen>
+
+    <dimen name="chbox_width">40dp</dimen>
+    <dimen name="layer_gap">5dp</dimen>
+    <dimen name="txt_heght">45dp</dimen>
+
+    <dimen name="user_image">150dp</dimen>
+
+    <dimen name="print_btn">45dp</dimen>
+    <dimen name="margin_top">50dp</dimen>
+    <dimen name="log_width">200dp</dimen>
+    <dimen name="tile_width">120dp</dimen>
+    <dimen name="alert_width">370dp</dimen>
+    <dimen name="login_width">280dp</dimen>
+
+    <dimen name="circle_indicator">30dp</dimen>
+    <dimen name="circle_line">80dp</dimen>
+    <dimen name="circle_line1">50dp</dimen>
+
+    <dimen name="drawer_width">250dp</dimen>
+
+    <dimen name="label_width">230dp</dimen>
+</resources>

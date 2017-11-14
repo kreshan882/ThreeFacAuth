@@ -1,0 +1,19 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:bottom="@dimen/button_layer">
+        <shape android:shape="rectangle" >
+            <solid android:color="#297956" />
+            <corners
+                android:topLeftRadius="10dp"
+                android:topRightRadius="0dp"/>
+        </shape>
+    </item>
+
+    <item android:top="@dimen/button_layer">
+        <shape android:shape="rectangle" >
+            <solid android:color="#0b6636" />
+            <corners
+                android:bottomLeftRadius="0dp"
+                android:bottomRightRadius="10dp"/>
+        </shape>
+    </item>
+</layer-list>
