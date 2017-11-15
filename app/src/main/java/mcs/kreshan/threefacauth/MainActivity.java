@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int RequestPermissionCode = 7;
     public  String imeiNumber;
     Button but;
-    TextView imei;
+    EditText imei;
     EditText pCode;
     EditText pCodeRe;
 
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         Log.i(LOG_CLASS,"onCreate");
 
         but=(Button)findViewById(R.id.button_login);
-        imei=(TextView)findViewById(R.id.input_name);
+        imei=(EditText)findViewById(R.id.imeiNum);
         pCode=(EditText)findViewById(R.id.input_password);
         pCodeRe=(EditText)findViewById(R.id.input_password_re);
         rb1=(RadioButton) findViewById(R.id.radioButton_face);
@@ -63,19 +63,25 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.i(LOG_CLASS,"onButtonClick");
 
-                String un=imei.getText().toString();
-                String pw=pCode.getText().toString();
+                String imeiNum=imei.getText().toString();
+                String passCode=pCode.getText().toString();
+                String passCodeRe=pCodeRe.getText().toString();
                 RadioButton radBut=(RadioButton)findViewById(rg.getCheckedRadioButtonId());
                 String rBut=radBut.getText().toString();
 
-                Log.i(LOG_CLASS,"userName"+un+"   passwd:"+pw+"   rBut:"+rBut);
-                if(un.equals("a")&& pw.equals("b")){
-                    Toast.makeText(MainActivity.this,"please give your:"+rBut,Toast.LENGTH_LONG).show();
+                Log.i(LOG_CLASS,"Imei:"+imeiNum+"   passCode:"+passCode+"   passCodeRe:"+passCodeRe+"  rBut:"+rBut);
+                if(passCode.equals(passCodeRe)){
+                    if(rBut.equals("Finger")){
+                        Toast.makeText(MainActivity.this,"please give your:"+rBut,Toast.LENGTH_LONG).show();
 
-                    startActivity(new Intent(MainActivity.this, FingerPrintActivity.class));
+                        startActivity(new Intent(MainActivity.this, FingerPrintActivity.class));
+                    }else{
+                        Toast.makeText(MainActivity.this,"please give your:"+rBut,Toast.LENGTH_LONG).show();
+                    }
                 }else{
-                    Toast.makeText(MainActivity.this,"login error try a,b",Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this,"password miss match",Toast.LENGTH_LONG).show();
                 }
+
             }
         });
 

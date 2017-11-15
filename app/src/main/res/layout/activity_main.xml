@@ -29,21 +29,33 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Imei   :"
-                android:textSize="18dp"/>
-            <TextView
-                android:id="@+id/input_name"
+                android:text="Imei Number : "
+                style="@style/labelName"/>
+            <EditText
+                android:id="@+id/imeiNum"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Imei Number"
-                style="@style/Label" />
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-             />
+                android:hint="Imei Number"
+                style="@style/labelVal" />
+
     </LinearLayout>
+    <EditText
+        android:id="@+id/input_password"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="25dp"
+        android:hint="Passcoce"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/whitek"/>
+    <EditText
+        android:id="@+id/input_password_re"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="25dp"
+        android:hint="Re Passcoce"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/whitek"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -90,22 +102,7 @@
             </LinearLayout>
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/input_password"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="25dp"
-        android:hint="Passcoce"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/whitek"/>
-    <EditText
-        android:id="@+id/input_password_re"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="25dp"
-        android:hint="Re Passcoce"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/whitek"/>
+
     <Button
         android:id="@+id/button_login"
         android:layout_width="match_parent"
