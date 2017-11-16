@@ -28,6 +28,14 @@
                 <!--android:name="android.support.PARENT_ACTIVITY"-->
                 <!--android:value=".MainActivity" />-->
         </activity>
+        <activity android:name=".FingerPrintSuccessActivity"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"
+            android:label="Finger Prient sucess" >
+            <!--<meta-data-->
+            <!--android:name="android.support.PARENT_ACTIVITY"-->
+            <!--android:value=".MainActivity" />-->
+        </activity>
     </application>
 
 </manifest>
