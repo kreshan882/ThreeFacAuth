@@ -44,21 +44,20 @@ public class FingerPrintActivity extends AppCompatActivity implements FingerPrin
         super.onCreate(savedInstanceState);
         setContentView(R.layout.finger_print);
 
-        Log.i(LOG_CLASS,"FingerPrintActivity.read Fingerprint Sensor");
-        mGoToSettingsBtn = (Button) findViewById(R.id.go_to_settings_btn);
+        Log.i(LOG_CLASS,"FingerPrintActivity.openSecuritySettings");
+        mGoToSettingsBtn = (Button) findViewById(R.id.go_to_settings_btn); //button setting
         mGoToSettingsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(LOG_CLASS,"FingerPrintActivity.read Fingerprint Sensor start");
+                Log.i(LOG_CLASS,"FingerPrintActivity.openSecuritySettings onclick");
                 FingerPrintUtils.openSecuritySettings(FingerPrintActivity.this);
-                Log.i(LOG_CLASS,"FingerPrintActivity.read Fingerprint Sensor end");
             }
         });
 
-        mSwitcher = (ViewSwitcher) findViewById(R.id.main_switcher);
-        mAuthMsgTv = (TextView) findViewById(R.id.auth_message_tv);
+        mSwitcher = (ViewSwitcher) findViewById(R.id.main_switcher); //viewSwitcher
+        mAuthMsgTv = (TextView) findViewById(R.id.auth_message_tv); //textview msg
 
-        EditText pinEt = (EditText) findViewById(R.id.pin_et);
+        EditText pinEt = (EditText) findViewById(R.id.pin_et); //enter pin
         pinEt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
