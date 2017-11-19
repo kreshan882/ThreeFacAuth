@@ -30,8 +30,10 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 
+import mcs.kreshan.utill.ResponceCode;
 
-public class FingerPrintAuthHelper {
+
+public class FingerPrintAuthImplementation {
     public static final String LOG_CLASS = "MainActivityFP";
     private static final String KEY_NAME = UUID.randomUUID().toString();
 
@@ -46,7 +48,7 @@ public class FingerPrintAuthHelper {
     private Context mContext;
 
     //notify the parent caller about the authentication status.
-    private FingerPrintAuthCallback mCallback;
+    private FingerPrintAuthInterface mCallback;
 
     //for finger print authentication.
     private CancellationSignal mCancellationSignal;
@@ -56,32 +58,32 @@ public class FingerPrintAuthHelper {
     /**
      * Private constructor.
      */
-    private FingerPrintAuthHelper(@NonNull Context context, @NonNull FingerPrintAuthCallback callback) {
+    private FingerPrintAuthImplementation(@NonNull Context context, @NonNull FingerPrintAuthInterface callback) {
         mCallback = callback;
         mContext = context;
     }
 
 
-    private FingerPrintAuthHelper() {
-        Log.i(LOG_CLASS,"FingerPrintAuthHelper.FingerPrintAuthHelper>>");
-        throw new RuntimeException("Use getHelper() to initialize FingerPrintAuthHelper.");
+    private FingerPrintAuthImplementation() {
+        Log.i(LOG_CLASS,"FingerPrintAuthImplementation.FingerPrintAuthImplementation");
+        throw new RuntimeException("Use getHelper() to initialize FingerPrintAuthImplementation.");
     }
 
 
-    public static FingerPrintAuthHelper getHelper(@NonNull Context context, @NonNull FingerPrintAuthCallback callback) {
-        Log.i(LOG_CLASS,"FingerPrintAuthHelper.getHelper>>");
+    public static FingerPrintAuthImplementation getHelper(@NonNull Context context, @NonNull FingerPrintAuthInterface callback) {
+        Log.i(LOG_CLASS,"FingerPrintAuthImplementation.getHelper");
         if (context == null) {
             throw new IllegalArgumentException("Context cannot be null.");
         } else if (callback == null) {
-            throw new IllegalArgumentException("FingerPrintAuthCallback cannot be null.");
+            throw new IllegalArgumentException("FingerPrintAuthInterface cannot be null.");
         }
 
-        return new FingerPrintAuthHelper(context, callback);
+        return new FingerPrintAuthImplementation(context, callback);
     }
 
     //Check if the finger print hardware is available.
     private boolean checkFingerPrintAvailability(@NonNull Context context) {
-        Log.i(LOG_CLASS,"FingerPrintAuthHelper.checkFingerPrintAvailability>>");
+        Log.i(LOG_CLASS,"FingerPrintAuthImplementation.checkFingerPrintAvailability");
         // Check if we're running on Android 6.0 (M) or higher
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             //Fingerprint API only available on from Android 6.0 (M)
@@ -104,7 +106,7 @@ public class FingerPrintAuthHelper {
 
     @TargetApi(23)
     private boolean generateKey() {
-        Log.i(LOG_CLASS,"FingerPrintAuthHelper.generateKey>>");
+        Log.i(LOG_CLASS,"FingerPrintAuthImplementation.generateKey");
         mKeyStore = null;
         KeyGenerator keyGenerator;
 
@@ -146,11 +148,11 @@ public class FingerPrintAuthHelper {
 
     @TargetApi(23)
     private boolean cipherInit() {
-        Log.i(LOG_CLASS,"FingerPrintAuthHelper.cipherInit>>");
+        Log.i(LOG_CLASS,"FingerPrintAuthImplementation.cipherInit");
         boolean isKeyGenerated = generateKey();
 
         if (!isKeyGenerated) {
-            mCallback.onAuthFailed(AuthErrorCodes.NON_RECOVERABLE_ERROR, ERROR_FAILED_TO_GENERATE_KEY);
+            mCallback.onAuthFailed(ResponceCode.NON_RECOVERABLE_ERROR, ERROR_FAILED_TO_GENERATE_KEY);
             return false;
         }
 
@@ -160,21 +162,23 @@ public class FingerPrintAuthHelper {
                             + KeyProperties.BLOCK_MODE_CBC + "/"
                             + KeyProperties.ENCRYPTION_PADDING_PKCS7);
         } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
-            mCallback.onAuthFailed(AuthErrorCodes.NON_RECOVERABLE_ERROR, ERROR_FAILED_TO_GENERATE_KEY);
+            mCallback.onAuthFailed(ResponceCode.NON_RECOVERABLE_ERROR, ERROR_FAILED_TO_GENERATE_KEY);
             return false;
         }
 
         try {
             mKeyStore.load(null);
             SecretKey key = (SecretKey) mKeyStore.getKey(KEY_NAME, null);
+            Log.i(LOG_CLASS,"key");
+            Log.i(LOG_CLASS,"key"+key.toString());
             mCipher.init(Cipher.ENCRYPT_MODE, key);
             return true;
         } catch (KeyPermanentlyInvalidatedException e) {
-            mCallback.onAuthFailed(AuthErrorCodes.NON_RECOVERABLE_ERROR, ERROR_FAILED_TO_INIT_CHIPPER);
+            mCallback.onAuthFailed(ResponceCode.NON_RECOVERABLE_ERROR, ERROR_FAILED_TO_INIT_CHIPPER);
             return false;
         } catch (KeyStoreException | CertificateException | UnrecoverableKeyException | IOException
                 | NoSuchAlgorithmException | InvalidKeyException e) {
-            mCallback.onAuthFailed(AuthErrorCodes.NON_RECOVERABLE_ERROR, ERROR_FAILED_TO_INIT_CHIPPER);
+            mCallback.onAuthFailed(ResponceCode.NON_RECOVERABLE_ERROR, ERROR_FAILED_TO_INIT_CHIPPER);
             return false;
         }
     }
@@ -182,7 +186,7 @@ public class FingerPrintAuthHelper {
     @TargetApi(23)
     @Nullable
     private FingerprintManager.CryptoObject getCryptoObject() {
-        Log.i(LOG_CLASS,"FingerPrintAuthHelper.getCryptoObject>>");
+        Log.i(LOG_CLASS,"FingerPrintAuthImplementation.getCryptoObject");
         return cipherInit() ? new FingerprintManager.CryptoObject(mCipher) : null;
     }
 
@@ -190,7 +194,7 @@ public class FingerPrintAuthHelper {
 
     @TargetApi(Build.VERSION_CODES.M)
     public void startAuth() {
-        Log.i(LOG_CLASS,"FingerPrintAuthHelper.startAuth>>");
+        Log.i(LOG_CLASS,"FingerPrintAuthImplementation.startAuth");
         if (isScanning) stopAuth();
 
         //check if the device supports the finger print hardware?
@@ -200,9 +204,9 @@ public class FingerPrintAuthHelper {
         FingerprintManager.CryptoObject cryptoObject = getCryptoObject();
 
         if (cryptoObject == null) {
-            mCallback.onAuthFailed(AuthErrorCodes.NON_RECOVERABLE_ERROR, ERROR_FAILED_TO_INIT_CHIPPER);
+            mCallback.onAuthFailed(ResponceCode.NON_RECOVERABLE_ERROR, ERROR_FAILED_TO_INIT_CHIPPER);
         } else {
-            Log.i(LOG_CLASS,"FingerPrintAuthHelper.startAuth>>.crypto object have");
+            Log.i(LOG_CLASS,"FingerPrintAuthImplementation.startAuth->.cryptoObject have");
             mCancellationSignal = new CancellationSignal();
             //noinspection MissingPermission
             fingerprintManager.authenticate(cryptoObject,
@@ -211,26 +215,27 @@ public class FingerPrintAuthHelper {
                     new FingerprintManager.AuthenticationCallback() {
                         @Override
                         public void onAuthenticationError(int errMsgId, CharSequence errString) {
-                            mCallback.onAuthFailed(AuthErrorCodes.NON_RECOVERABLE_ERROR, errString.toString());
+                            mCallback.onAuthFailed(ResponceCode.NON_RECOVERABLE_ERROR, errString.toString());
                         }
 
                         @Override
                         public void onAuthenticationHelp(int helpMsgId, CharSequence helpString) {
-                            mCallback.onAuthFailed(AuthErrorCodes.RECOVERABLE_ERROR, helpString.toString());
+                            mCallback.onAuthFailed(ResponceCode.RECOVERABLE_ERROR, helpString.toString());
                         }
 
                         @Override
                         public void onAuthenticationFailed() {
-                            mCallback.onAuthFailed(AuthErrorCodes.CANNOT_RECOGNIZE_ERROR, null);
+                            mCallback.onAuthFailed(ResponceCode.CANNOT_RECOGNIZE_ERROR, null);
                         }
 
                         @Override
                         public void onAuthenticationSucceeded(FingerprintManager.AuthenticationResult result) {
+                            Log.i(LOG_CLASS,"FingerPrintAuthImplementation.startAuth-> cryptoObject have .onAuthenticationSucceeded");
                             mCallback.onAuthSuccess(result.getCryptoObject());
                         }
                     }, null);
         }
-        Log.i(LOG_CLASS,"FingerPrintAuthHelper.startAuth> end");
+        Log.i(LOG_CLASS,"FingerPrintAuthImplementation.startAuth finesh");
     }
 
 
@@ -238,7 +243,7 @@ public class FingerPrintAuthHelper {
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void stopAuth() {
-        Log.i(LOG_CLASS,"FingerPrintAuthHelper.stopAuth>>");
+        Log.i(LOG_CLASS,"FingerPrintAuthImplementation.stopAuth");
         if (mCancellationSignal != null) {
             isScanning = true;
             mCancellationSignal.cancel();

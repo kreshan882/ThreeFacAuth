@@ -3,7 +3,7 @@ package mcs.kreshan.fingerprint;
 import android.hardware.fingerprint.FingerprintManager;
 
 
-public interface FingerPrintAuthCallback {
+public interface FingerPrintAuthInterface {
 
     //no finger print hardware found on the device.
     void onNoFingerPrintHardwareFound();

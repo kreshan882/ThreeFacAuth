@@ -17,21 +17,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
-import mcs.kreshan.fingerprint.AuthErrorCodes;
-import mcs.kreshan.fingerprint.FingerPrintAuthCallback;
-import mcs.kreshan.fingerprint.FingerPrintAuthHelper;
+import mcs.kreshan.fingerprint.FingerPrintAuthImplementation;
+import mcs.kreshan.fingerprint.FingerPrintAuthInterface;
 import mcs.kreshan.fingerprint.FingerPrintUtils;
+import mcs.kreshan.utill.ResponceCode;
 
 /**
  * Created by kreshan88 on 8/27/2017.
  */
 
-public class FingerPrintActivity extends AppCompatActivity implements FingerPrintAuthCallback {
+public class FingerPrintActivity extends AppCompatActivity implements FingerPrintAuthInterface {
     public static final String LOG_CLASS = "MainActivity";
     private TextView mAuthMsgTv;
     private ViewSwitcher mSwitcher;
     private Button mGoToSettingsBtn;
-    private FingerPrintAuthHelper mFingerPrintAuthHelper;
+    private FingerPrintAuthImplementation mFingerPrintAuthHelper;
 
 //    private KeyStore keyStore;
 //    private static final String KEY_NAME = "androidHive";
@@ -44,12 +44,12 @@ public class FingerPrintActivity extends AppCompatActivity implements FingerPrin
         super.onCreate(savedInstanceState);
         setContentView(R.layout.finger_print);
 
-        Log.i(LOG_CLASS,"FingerPrintActivity.openSecuritySettings");
+        Log.i(LOG_CLASS,"FingerPrintActivity.onCreate");
         mGoToSettingsBtn = (Button) findViewById(R.id.go_to_settings_btn); //button setting
         mGoToSettingsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(LOG_CLASS,"FingerPrintActivity.openSecuritySettings onclick");
+                Log.i(LOG_CLASS,"FingerPrintActivity.onCreate.setOnClickListener");
                 FingerPrintUtils.openSecuritySettings(FingerPrintActivity.this);
             }
         });
@@ -78,9 +78,9 @@ public class FingerPrintActivity extends AppCompatActivity implements FingerPrin
 
             }
         });
-        Log.i(LOG_CLASS,"FingerPrintActivity.call getHelper");
-        mFingerPrintAuthHelper = FingerPrintAuthHelper.getHelper(this, this);
-        Log.i(LOG_CLASS,"FingerPrintActivity.end getHelper");
+        Log.i(LOG_CLASS,"FingerPrintActivity.onCreat getHelper start");
+        mFingerPrintAuthHelper = FingerPrintAuthImplementation.getHelper(this, this);
+        Log.i(LOG_CLASS,"FingerPrintActivity.onCreat getHelper end");
 
 
     }
@@ -137,14 +137,14 @@ public class FingerPrintActivity extends AppCompatActivity implements FingerPrin
         Log.i(LOG_CLASS,"FingerPrintActivity.onAuthFailed");
         Log.i(LOG_CLASS,"onAuthFailed"+errorCode);
         switch (errorCode) {
-            case AuthErrorCodes.CANNOT_RECOGNIZE_ERROR:
+            case ResponceCode.CANNOT_RECOGNIZE_ERROR:
                 mAuthMsgTv.setText("Cannot recognize your finger print. Please try again.");
                 break;
-            case AuthErrorCodes.NON_RECOVERABLE_ERROR:
+            case ResponceCode.NON_RECOVERABLE_ERROR:
                 mAuthMsgTv.setText("Cannot initialize finger print authentication. Please type 1234 to authenticate.");
                 mSwitcher.showNext();
                 break;
-            case AuthErrorCodes.RECOVERABLE_ERROR:
+            case ResponceCode.RECOVERABLE_ERROR:
                 mAuthMsgTv.setText(errorMessage);
                 break;
         }

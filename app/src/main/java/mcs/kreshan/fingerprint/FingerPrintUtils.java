@@ -17,14 +17,14 @@ public class FingerPrintUtils {
     public static final String LOG_CLASS = "MainActivityFP";
     //Open the Security settings screen.
     public static void openSecuritySettings(@NonNull Context context) {
-        Log.i(LOG_CLASS,"FingerPrintUtils.openSecuritySettings>>");
+        Log.i(LOG_CLASS,"FingerPrintUtils.openSecuritySettings");
         Intent intent = new Intent(Settings.ACTION_SECURITY_SETTINGS);
         context.startActivity(intent);
     }
 
     //Check if the device have supported hardware for the finger print scanner.
     public static boolean isSupportedHardware(Context context) {
-        Log.i(LOG_CLASS,"FingerPrintUtils.isSupportedHardware>>");
+        Log.i(LOG_CLASS,"FingerPrintUtils.isSupportedHardware");
         FingerprintManagerCompat fingerprintManager = FingerprintManagerCompat.from(context);
         return fingerprintManager.isHardwareDetected();
     }
