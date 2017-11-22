@@ -1,46 +1,50 @@
 package mcs.kreshan.threefacauth;
 
+import android.Manifest;
 import android.annotation.TargetApi;
-import android.content.Intent;
+import android.app.KeyguardManager;
+import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.security.keystore.KeyGenParameterSpec;
+import android.security.keystore.KeyPermanentlyInvalidatedException;
+import android.security.keystore.KeyProperties;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ViewSwitcher;
 
+import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
 import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateException;
 
 import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
 
-import mcs.kreshan.fingerprint.FingerPrintAuthImplementation;
-import mcs.kreshan.fingerprint.FingerPrintAuthInterface;
-import mcs.kreshan.fingerprint.FingerPrintUtils;
-import mcs.kreshan.utill.ResponceCode;
+import mcs.kreshan.fingerprint.FingerprintHandler;
 
 /**
  * Created by kreshan88 on 8/27/2017.
  */
 
-public class FingerPrintActivity extends AppCompatActivity implements FingerPrintAuthInterface {
+public class FingerPrintActivity extends AppCompatActivity  {
     public static final String LOG_CLASS = "MainActivity";
-//    private TextView mAuthMsgTv;
-//    private ViewSwitcher mSwitcher;
-//    private Button mGoToSettingsBtn;
-//    private FingerPrintAuthImplementation mFingerPrintAuthHelper;
 
     private KeyStore keyStore;
+    // Variable used for storing the key in the Android Keystore container
     private static final String KEY_NAME = "androidHive";
     private Cipher cipher;
-    private TextView auth_message_tv;
+    private TextView textView;
 
     @TargetApi(Build.VERSION_CODES.M)
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -50,10 +54,38 @@ public class FingerPrintActivity extends AppCompatActivity implements FingerPrin
         setContentView(R.layout.finger_print);
 
         Log.i(LOG_CLASS,"FingerPrintActivity.onCreate");
+        // Keyguard Manager and Fingerprint Manager (lock unlock finger print hardware)
+        KeyguardManager keyguardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
+        FingerprintManager fingerprintManager = (FingerprintManager) getSystemService(FINGERPRINT_SERVICE);
 
+        textView = (TextView) findViewById(R.id.errorText);
 
-        Log.i(LOG_CLASS,"FingerPrintActivity.onCreat getHelper end");
+        if(!fingerprintManager.isHardwareDetected()){
+            textView.setText("Your Device does not have a Fingerprint Sensor");
+        }else {
+            // Checks whether fingerprint permission is set on manifest
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
+                textView.setText("Fingerprint authentication permission not enabled");
+            }else{
+                // Check whether at least one fingerprint is registered
+                if (!fingerprintManager.hasEnrolledFingerprints()) {
+                    textView.setText("Register at least one fingerprint in Settings");
+                }else{
+                    // Checks whether lock screen security is enabled or not
+                    if (!keyguardManager.isKeyguardSecure()) {
+                        textView.setText("Lock screen security not enabled in Settings");
+                    }else{
+                        generateKey();
 
+                        if (cipherInit()) {
+                            FingerprintManager.CryptoObject cryptoObject = new FingerprintManager.CryptoObject(cipher);
+                            FingerprintHandler helper = new FingerprintHandler(this);
+                            helper.startAuth(fingerprintManager, cryptoObject);
+                        }
+                    }
+                }
+            }
+        }
 
     }
 
@@ -71,35 +103,58 @@ public class FingerPrintActivity extends AppCompatActivity implements FingerPrin
 
     }
 
-    @Override
-    public void onNoFingerPrintHardwareFound() {
-        Log.i(LOG_CLASS,"FingerPrintActivity.onNoFingerPrintHardwareFound");
+    @TargetApi(Build.VERSION_CODES.M)
+    protected void generateKey() {
+        try {
+            keyStore = KeyStore.getInstance("AndroidKeyStore");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        KeyGenerator keyGenerator;
+        try {
+            keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore");
+        } catch (NoSuchAlgorithmException | NoSuchProviderException e) {
+            throw new RuntimeException("Failed to get KeyGenerator instance", e);
+        }
+
+        try {
+            keyStore.load(null);
+            keyGenerator.init(new
+                    KeyGenParameterSpec.Builder(KEY_NAME,
+                    KeyProperties.PURPOSE_ENCRYPT |
+                            KeyProperties.PURPOSE_DECRYPT)
+                    .setBlockModes(KeyProperties.BLOCK_MODE_CBC)
+                    .setUserAuthenticationRequired(true)
+                    .setEncryptionPaddings(
+                            KeyProperties.ENCRYPTION_PADDING_PKCS7)
+                    .build());
+            keyGenerator.generateKey();
+        } catch (NoSuchAlgorithmException |
+                InvalidAlgorithmParameterException
+                | CertificateException | IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    @Override
-    public void onNoFingerPrintRegistered() {
-        Log.i(LOG_CLASS,"FingerPrintActivity.onNoFingerPrintRegistered");
+    @TargetApi(Build.VERSION_CODES.M)
+    public boolean cipherInit() {
+        try {
+            cipher = Cipher.getInstance(KeyProperties.KEY_ALGORITHM_AES + "/" + KeyProperties.BLOCK_MODE_CBC + "/" + KeyProperties.ENCRYPTION_PADDING_PKCS7);
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
+            throw new RuntimeException("Failed to get Cipher", e);
+        }
 
-    }
-
-    @Override
-    public void onBelowMarshmallow() {
-        Log.i(LOG_CLASS,"FingerPrintActivity.onBelowMarshmallow");
-
-    }
-
-    @Override
-    public void onAuthSuccess(FingerprintManager.CryptoObject cryptoObject) {
-        Log.i(LOG_CLASS,"FingerPrintActivity.onAuthSuccess");
-        Toast.makeText(FingerPrintActivity.this, "Authentication succeeded.", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(FingerPrintActivity.this, FingerPrintSuccessActivity.class));
-    }
-
-    @Override
-    public void onAuthFailed(int errorCode, String errorMessage) {
-        Log.i(LOG_CLASS,"FingerPrintActivity.onAuthFailed");
-        Log.i(LOG_CLASS,"onAuthFailed"+errorCode);
-
+        try {
+            keyStore.load(null);
+            SecretKey key = (SecretKey) keyStore.getKey(KEY_NAME,
+                    null);
+            cipher.init(Cipher.ENCRYPT_MODE, key);
+            return true;
+        } catch (KeyPermanentlyInvalidatedException e) {
+            return false;
+        } catch (KeyStoreException | CertificateException | UnrecoverableKeyException | IOException | NoSuchAlgorithmException | InvalidKeyException e) {
+            throw new RuntimeException("Failed to init Cipher", e);
+        }
     }
 }
