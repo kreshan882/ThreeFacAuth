@@ -3,6 +3,7 @@ package mcs.kreshan.threefacauth;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.KeyguardManager;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
@@ -13,6 +14,7 @@ import android.security.keystore.KeyProperties;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -52,7 +54,12 @@ public class FingerPrintActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fingerprint_read);
 
-        Log.i(LOG_CLASS,"FingerPrintActivity.onCreate");
+        Intent intent = getIntent();
+        String imei = intent.getStringExtra("imei");
+        String pass = intent.getStringExtra("pass");
+        String bioT = intent.getStringExtra("bioT");
+
+        Log.i(LOG_CLASS,"FingerPrintActivity.onCreate==>"+imei+":"+pass+":"+bioT);
         KeyguardManager keyguardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
         FingerprintManager fingerprintManager = (FingerprintManager) getSystemService(FINGERPRINT_SERVICE);
 
@@ -76,9 +83,10 @@ public class FingerPrintActivity extends AppCompatActivity  {
                         generateKey();
 
                         if (cipherInit()) {
+
                             FingerprintManager.CryptoObject cryptoObject = new FingerprintManager.CryptoObject(cipher);
                             FingerprintHandler helper = new FingerprintHandler(this);
-                            helper.startAuth(fingerprintManager, cryptoObject);
+                            helper.startAuth(fingerprintManager, cryptoObject,imei,pass,bioT);
                         }
                     }
                 }
@@ -148,6 +156,12 @@ public class FingerPrintActivity extends AppCompatActivity  {
             SecretKey key = (SecretKey) keyStore.getKey(KEY_NAME,
                     null);
             cipher.init(Cipher.ENCRYPT_MODE, key);
+
+//            //remove..................
+//            byte[] privateKey = key.getEncoded();
+//            String encodedPrivateKey = Base64.encodeToString(privateKey,1);
+//            Log.i(LOG_CLASS,"FingerPrintActivity.cipherInit==>key:"+encodedPrivateKey);
+//            //........................
             return true;
         } catch (KeyPermanentlyInvalidatedException e) {
             return false;

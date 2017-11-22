@@ -68,7 +68,12 @@ public class MainActivity extends AppCompatActivity {
                 if(passCode.equals(passCodeRe)){
                     if(rBut.equals("Finger")){
                         Toast.makeText(MainActivity.this,"please give your:"+rBut,Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(MainActivity.this, FingerPrintActivity.class));
+                        Intent intent=new Intent(MainActivity.this, FingerPrintActivity.class);
+                        intent.putExtra("imei", imeiNum);
+                        intent.putExtra("pass", passCode);
+                        intent.putExtra("bioT", rBut);
+                        startActivity(intent);
+
                     }else{
                         Toast.makeText(MainActivity.this,"please give your:"+rBut,Toast.LENGTH_LONG).show();
                     }
