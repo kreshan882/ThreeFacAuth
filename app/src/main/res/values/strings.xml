@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Three Factor Authentication</string>
+    <string name="fp_title">Please give your fingerprint.</string>
 </resources>

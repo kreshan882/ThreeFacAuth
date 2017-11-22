@@ -41,8 +41,7 @@ public class FingerPrintActivity extends AppCompatActivity  {
     public static final String LOG_CLASS = "MainActivity";
 
     private KeyStore keyStore;
-    // Variable used for storing the key in the Android Keystore container
-    private static final String KEY_NAME = "androidHive";
+    private static final String KEY_NAME = "androidkeyK";
     private Cipher cipher;
     private TextView textView;
 
@@ -51,10 +50,9 @@ public class FingerPrintActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.finger_print);
+        setContentView(R.layout.fingerprint_read);
 
         Log.i(LOG_CLASS,"FingerPrintActivity.onCreate");
-        // Keyguard Manager and Fingerprint Manager (lock unlock finger print hardware)
         KeyguardManager keyguardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
         FingerprintManager fingerprintManager = (FingerprintManager) getSystemService(FINGERPRINT_SERVICE);
 

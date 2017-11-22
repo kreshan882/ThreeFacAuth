@@ -23,7 +23,7 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
 
     // Constructor
     public FingerprintHandler(Context mContext) {
-        context = mContext;
+        context = mContext; //FingerPrintActivity
     }
 
     public void startAuth(FingerprintManager manager, FingerprintManager.CryptoObject cryptoObject) {
@@ -51,13 +51,14 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
 
     @Override
     public void onAuthenticationSucceeded(FingerprintManager.AuthenticationResult result) {
+        this.update("Fingerprint Authentication success.--> send data to backend server get responce");
         ((Activity) context).finish();
         Intent intent = new Intent(context, FingerPrintSuccessActivity.class);
         context.startActivity(intent);
     }
 
     private void update(String e){
-        Log.i(LOG_CLASS,"FingerPrintActivity.onCreate --update");
+        Log.i(LOG_CLASS,"FingerprintHandler"+e);
 
 //        TextView textView = (TextView) ((Activity)context).findViewById(R.id.errorText);
 //        textView.setText(e);

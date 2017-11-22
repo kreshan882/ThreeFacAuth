@@ -15,13 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import static android.Manifest.permission.ACCESS_FINE_LOCATION;
-import static android.Manifest.permission.BLUETOOTH;
-import static android.Manifest.permission.CAMERA;
-import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.READ_PHONE_STATE;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.registration_form);
         Log.i(LOG_CLASS,"onCreate");
 
         but=(Button)findViewById(R.id.button_login);

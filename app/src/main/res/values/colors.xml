@@ -7,6 +7,8 @@
     <color name="bluek">#7b92de</color>
     <color name="blackk">#000206</color>
     <color name="whitek">#ffffff</color>
+    <color name="yellowk">#f7dc13</color>
+    <color name="purplek">#ceb5ed</color>
 
 
 
@@ -22,6 +24,7 @@
     <color name="cardColor1">#e5eeea</color>
     <color name="cardColor2">#f2f6f5</color>
     <color name="red">#FFB10505</color>
+
 
     <color name="topic_background">#f1f1f1</color>
 </resources>
