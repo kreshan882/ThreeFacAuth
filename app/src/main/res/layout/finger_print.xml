@@ -13,44 +13,20 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="mcs.kreshan.threefacauth.FingerPrintActivity">
 
-    <ViewSwitcher
-        android:id="@+id/main_switcher"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:src="@drawable/ic_finger_print"
-            tools:ignore="ContentDescription"/>
-
-        <EditText
-            android:id="@+id/pin_et"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:hint="Passcode"
-            android:inputType="number"
-            android:maxLength="4"
-            android:minEms="8"/>
-    </ViewSwitcher>
+    <ImageView
+        android:id="@+id/imageFinger"
+        android:src="@drawable/ic_finger_print"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
 
     <TextView
-        android:id="@+id/auth_message_tv"
+        android:layout_marginBottom="@+id/auth_message_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
+        android:text="please place ur finger...."
+        android:textAlignment="center"
         android:textSize="18sp"/>
 
-    <Button
-        android:id="@+id/go_to_settings_btn"
-        style="@android:style/Widget.Holo.Button.Borderless"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Open Settings"
-        android:textColor="@android:color/holo_blue_dark"/>
 </LinearLayout>
 
