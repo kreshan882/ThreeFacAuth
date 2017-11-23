@@ -62,17 +62,17 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
 
     @Override
     public void onAuthenticationError(int errMsgId, CharSequence errString) {
-        this.update("Fingerprint Authentication error\n" + errString);
+        Log.i(LOG_CLASS,"Fingerprint Authentication error\n" + errString);
     }
 
     @Override
     public void onAuthenticationHelp(int helpMsgId, CharSequence helpString) {
-        this.update("Fingerprint Authentication help\n" + helpString);
+        Log.i(LOG_CLASS,"Fingerprint Authentication help\n" + helpString);
     }
 
     @Override
     public void onAuthenticationFailed() {
-        this.update("Fingerprint Authentication failed.");
+        Log.i(LOG_CLASS,"Fingerprint Authentication failed.");
     }
 
     @Override
@@ -81,7 +81,10 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
     try {
         Log.i(LOG_CLASS, "FingerprintHandler.onAuthenticationSucceeded==>" + imeiG + ":" + passG + ":" + bioTG);
         String encPassword=TransactionHelper.encryption(imeiG+passG);
-        this.update("Fingerprint encrypeted:"+encPassword);
+        String msgSHA2=TransactionHelper.getSHA2(encPassword);
+        Log.i(LOG_CLASS,"encrypet Fingerprint sha2:"+msgSHA2);
+
+        
 
         ((Activity) context).finish();
         Intent intent = new Intent(context, FingerPrintSuccessActivity.class);
@@ -91,12 +94,7 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
     }
     }
 
-    private void update(String e){
-        Log.i(LOG_CLASS,"FingerprintHandler"+e);
 
-//        TextView textView = (TextView) ((Activity)context).findViewById(R.id.errorText);
-//        textView.setText(e);
-    }
 
 
 

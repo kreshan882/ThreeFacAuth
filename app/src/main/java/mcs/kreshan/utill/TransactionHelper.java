@@ -5,6 +5,8 @@ import android.security.keystore.UserNotAuthenticatedException;
 import android.util.Base64;
 import android.util.Log;
 
+import org.jpos.iso.ISOUtil;
+
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
@@ -44,7 +46,7 @@ public class TransactionHelper {
     public static String getSHA2(String msg) throws Exception{
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] encodedhash = digest.digest(msg.getBytes(StandardCharsets.UTF_8));
-        //String sha256hex = ISOU
-        return "";
+        String res = ISOUtil.hexString(encodedhash);
+        return res;
     }
 }
