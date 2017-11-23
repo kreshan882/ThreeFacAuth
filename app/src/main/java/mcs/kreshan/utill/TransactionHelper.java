@@ -6,7 +6,9 @@ import android.util.Base64;
 import android.util.Log;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import javax.crypto.BadPaddingException;
@@ -37,5 +39,12 @@ public class TransactionHelper {
             e.printStackTrace();
         }
         return encryptedPassword;
+    }
+
+    public static String getSHA2(String msg) throws Exception{
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] encodedhash = digest.digest(msg.getBytes(StandardCharsets.UTF_8));
+        //String sha256hex = ISOU
+        return "";
     }
 }
