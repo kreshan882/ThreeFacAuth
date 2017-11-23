@@ -4,17 +4,34 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.CancellationSignal;
+import android.security.keystore.KeyProperties;
+import android.security.keystore.UserNotAuthenticatedException;
 import android.support.v4.app.ActivityCompat;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.TextView;
 
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.Signature;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
+
+import mcs.kreshan.threefacauth.FingerPrintActivity;
 import mcs.kreshan.threefacauth.FingerPrintSuccessActivity;
+import mcs.kreshan.threefacauth.R;
+import mcs.kreshan.utill.TransactionHelper;
 
 /**
  * Created by kreshan88 on 11/22/2017.
@@ -61,12 +78,17 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
     @Override
     public void onAuthenticationSucceeded(FingerprintManager.AuthenticationResult result) {
 ;
+    try {
+        Log.i(LOG_CLASS, "FingerprintHandler.onAuthenticationSucceeded==>" + imeiG + ":" + passG + ":" + bioTG);
+        String encPassword=TransactionHelper.encryption(imeiG+passG);
+        this.update("Fingerprint encrypeted:"+encPassword);
 
-        Log.i(LOG_CLASS,"FingerprintHandler.onAuthenticationSucceeded==>"+imeiG+":"+passG+":"+bioTG);
-        this.update("Fingerprint Authentication success.--> send data to backend server get responce");
         ((Activity) context).finish();
         Intent intent = new Intent(context, FingerPrintSuccessActivity.class);
         context.startActivity(intent);
+    }catch (Exception e){
+        e.printStackTrace();
+    }
     }
 
     private void update(String e){
@@ -75,5 +97,8 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
 //        TextView textView = (TextView) ((Activity)context).findViewById(R.id.errorText);
 //        textView.setText(e);
     }
+
+
+
 
 }
