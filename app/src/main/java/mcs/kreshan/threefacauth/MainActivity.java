@@ -17,6 +17,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import mcs.kreshan.utill.SeqServiceConnection;
+
 import static android.Manifest.permission.READ_PHONE_STATE;
 
 public class MainActivity extends AppCompatActivity {
@@ -75,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
 
                     }else{
+                        SeqServiceConnection.sendK();
+
                         Toast.makeText(MainActivity.this,"please give your:"+rBut,Toast.LENGTH_LONG).show();
                     }
                 }else{

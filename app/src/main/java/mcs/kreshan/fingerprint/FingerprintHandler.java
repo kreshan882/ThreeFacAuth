@@ -30,7 +30,7 @@ import javax.crypto.SecretKey;
 
 import mcs.kreshan.threefacauth.FingerPrintActivity;
 import mcs.kreshan.threefacauth.FingerPrintSuccessActivity;
-import mcs.kreshan.threefacauth.R;
+//import mcs.kreshan.threefacauth.R;
 import mcs.kreshan.utill.TransactionHelper;
 
 /**
@@ -84,7 +84,7 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
         String msgSHA2=TransactionHelper.getSHA2(encPassword);
         Log.i(LOG_CLASS,"encrypet Fingerprint sha2:"+msgSHA2);
 
-        
+
 
         ((Activity) context).finish();
         Intent intent = new Intent(context, FingerPrintSuccessActivity.class);
