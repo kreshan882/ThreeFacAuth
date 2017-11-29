@@ -80,7 +80,7 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
 ;
     try {
         Log.i(LOG_CLASS, "FingerprintHandler.onAuthenticationSucceeded==>" + imeiG + ":" + passG + ":" + bioTG);
-        String encPassword=TransactionHelper.encryption(imeiG+passG);
+        String encPassword=TransactionHelper.encryption(imeiG+passG); //encrypet by finger prient
         String msgSHA2=TransactionHelper.getSHA2(encPassword);
         Log.i(LOG_CLASS,"encrypet Fingerprint sha2:"+msgSHA2);
 

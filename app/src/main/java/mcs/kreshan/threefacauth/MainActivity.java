@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
 
                     }else{
-                        SeqServiceConnection.sendK();
+                        SeqServiceConnection.sendK("ssssssss","rrrrrrrrr");
 
                         Toast.makeText(MainActivity.this,"please give your:"+rBut,Toast.LENGTH_LONG).show();
                     }
