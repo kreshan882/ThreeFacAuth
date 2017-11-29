@@ -4,34 +4,15 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.CancellationSignal;
-import android.security.keystore.KeyProperties;
-import android.security.keystore.UserNotAuthenticatedException;
 import android.support.v4.app.ActivityCompat;
-import android.util.Base64;
 import android.util.Log;
-import android.widget.TextView;
 
-import java.io.UnsupportedEncodingException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.Signature;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.KeyGenerator;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.SecretKey;
-
-import mcs.kreshan.threefacauth.FingerPrintActivity;
 import mcs.kreshan.threefacauth.FingerPrintSuccessActivity;
 //import mcs.kreshan.threefacauth.R;
-import mcs.kreshan.utill.TransactionHelper;
+import mcs.kreshan.utill.SequrityHelper;
 
 /**
  * Created by kreshan88 on 11/22/2017.
@@ -80,16 +61,18 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
 ;
     try {
         Log.i(LOG_CLASS, "FingerprintHandler.onAuthenticationSucceeded==>" + imeiG + ":" + passG + ":" + bioTG);
-        String encPassword=TransactionHelper.encryption(imeiG+passG); //encrypet by finger prient
-        String msgSHA2=TransactionHelper.getSHA2(encPassword);
-        Log.i(LOG_CLASS,"encrypet Fingerprint sha2:"+msgSHA2);
+        String encPassword= SequrityHelper.encryptionByFingerPrientKey(imeiG+passG); //encrypet by finger prient
+        String msgSHA2= SequrityHelper.getSHA2(encPassword);
+        Log.i(LOG_CLASS,"MsgSHA2:"+msgSHA2);
 
-
+        String msgCertEnc= SequrityHelper.cncryptionByCert(msgSHA2);
+        Log.i(LOG_CLASS,"MsgCertEnc:"+msgCertEnc);
 
         ((Activity) context).finish();
         Intent intent = new Intent(context, FingerPrintSuccessActivity.class);
         context.startActivity(intent);
     }catch (Exception e){
+        Log.i(LOG_CLASS,e.toString());
         e.printStackTrace();
     }
     }
