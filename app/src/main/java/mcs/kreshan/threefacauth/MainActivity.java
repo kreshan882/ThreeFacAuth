@@ -20,6 +20,7 @@ import android.widget.Toast;
 import mcs.kreshan.utill.SeqServiceConnection;
 import mcs.kreshan.utill.SequrityHelper;
 
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.READ_PHONE_STATE;
 
 public class MainActivity extends AppCompatActivity {
@@ -90,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
     }
 
 
@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void RequestMultiplePermission() {
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{
-                READ_PHONE_STATE}, RequestPermissionCode);
+                READ_PHONE_STATE,READ_EXTERNAL_STORAGE}, RequestPermissionCode);
     }
 
     public void getImeiNumber(){
@@ -176,8 +176,9 @@ public class MainActivity extends AppCompatActivity {
             case RequestPermissionCode:
                 if (grantResults.length > 0) {
                     boolean ReadPhoneStatus         = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    boolean StoragePermission       = grantResults[1] == PackageManager.PERMISSION_GRANTED;
 
-                    if (ReadPhoneStatus) {
+                    if (ReadPhoneStatus && StoragePermission) {
                         // Toast.makeText(RegistrationActivity.this, "Permission Granted", Toast.LENGTH_LONG).show();
                        getImeiNumber();
                     }else{

@@ -28,7 +28,6 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
-
 import mcs.kreshan.threefacauth.FingerPrintActivity;
 
 /**
@@ -41,13 +40,16 @@ public class SequrityHelper {
     public static String encryptionByFingerPrientKey(String pin) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException, BadPaddingException, IllegalBlockSizeException {
         String encryptedPassword="";
         try {
+            byte[] passwordBytes = pin.getBytes("UTF-8");
+
             SecretKey secretKey = FingerPrintActivity.createKey();
+            //Log.i(LOG_CLASS,"Get Key :"+secretKey.getEncoded()); // return null value
             Cipher cipher = Cipher.getInstance(KeyProperties.KEY_ALGORITHM_AES + "/" + KeyProperties.BLOCK_MODE_CBC + "/" + KeyProperties.ENCRYPTION_PADDING_PKCS7);
             cipher.init(Cipher.ENCRYPT_MODE, secretKey);
-            byte[] passwordBytes = pin.getBytes("UTF-8");
             byte[] encryptedPasswordBytes = cipher.doFinal(passwordBytes);
-            encryptedPassword = Base64.encodeToString(encryptedPasswordBytes, Base64.DEFAULT);
-        } catch (UserNotAuthenticatedException e) {
+            encryptedPassword = ISOUtil.hexString(encryptedPasswordBytes);//Base64.encodeToString(encryptedPasswordBytes, Base64.DEFAULT);
+        } catch (Exception e) {
+            Log.i(LOG_CLASS,"error::"+e.getMessage());
             e.printStackTrace();
         }
         return encryptedPassword;
@@ -56,9 +58,9 @@ public class SequrityHelper {
     public static String getSHA2(String msg) throws Exception{
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] encodedhash = digest.digest(msg.getBytes(StandardCharsets.UTF_8));
-        String res = ISOUtil.hexString(encodedhash);
-        return res;
+        return ISOUtil.hexString(encodedhash);
     }
+
     public static String cncryptionByCert(String msg) throws Exception{
 
         CertificateFactory cf = CertificateFactory.getInstance("X.509");
@@ -69,9 +71,6 @@ public class SequrityHelper {
         Cipher cipher= Cipher.getInstance("RSA/NONE/PKCS1Padding");
         cipher.init(Cipher.ENCRYPT_MODE, cert.getPublicKey());
         byte[] res = cipher.doFinal(msg.getBytes());
-
-        //SecretKey secretKey= (SecretKey) cert.getPublicKey();
-
         return ISOUtil.hexString(res);
     }
 
@@ -83,6 +82,7 @@ public class SequrityHelper {
                 dir.mkdir();
             }
             File file = new File(dir, SysConfiguration.KEY_FILE_NAME);
+
             if(file.exists()){
                 file.delete();
             }
@@ -103,10 +103,8 @@ public class SequrityHelper {
                     }
 
                 } catch (FileNotFoundException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 } finally {
                     try {
@@ -117,7 +115,6 @@ public class SequrityHelper {
                             f.close();
                         }
                     } catch (IOException e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                 }

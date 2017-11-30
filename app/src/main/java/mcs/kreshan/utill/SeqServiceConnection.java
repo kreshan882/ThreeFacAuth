@@ -17,39 +17,39 @@ public class SeqServiceConnection {
     public static final String LOG_CLASS = "MainActivity";
     static  String res="";
 
-    public static void sendK(String imei,String encMsg) {
-
-        try {
-
-            final JSONObject jsonObject = new JSONObject();
-            jsonObject.put("imei", imei);
-            jsonObject.put("enc_msg", encMsg);
-
-            Log.i(LOG_CLASS,"Sending json request: "+jsonObject.toString());
-
-            //String responce=SeqServiceConnection.sendAndRec(jsonObject.toString());
-            Thread thread = new Thread(new Runnable() {
-
-                @Override
-                public void run() {
-                    try  {
-//                        String res= SeqServiceConnection.sendAndRec("{\"enc_msg\":\"1234\",\"imei\":\"4216890405043373\"}");
-                        res= SeqServiceConnection.sendAndRec(jsonObject.toString());
-                        Log.i(LOG_CLASS,"Resived Json responce: "+res);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-            thread.start();
-
-
-        } catch (Exception e) {
-            Log.i(LOG_CLASS,"error");
-            Log.i(LOG_CLASS,"error:"+e.toString());
-            e.printStackTrace();
-        }
-    }
+//    public static void sendK(String imei,String encMsg) {
+//
+//        try {
+//
+//            final JSONObject jsonObject = new JSONObject();
+//            jsonObject.put("imei", imei);
+//            jsonObject.put("enc_msg", encMsg);
+//
+//            Log.i(LOG_CLASS,"Sending json request: "+jsonObject.toString());
+//
+//            //String responce=SeqServiceConnection.sendAndRec(jsonObject.toString());
+//            Thread thread = new Thread(new Runnable() {
+//
+//                @Override
+//                public void run() {
+//                    try  {
+////                        String res= SeqServiceConnection.sendAndRec("{\"enc_msg\":\"1234\",\"imei\":\"4216890405043373\"}");
+//                        res= SeqServiceConnection.sendAndRec(jsonObject.toString());
+//                        Log.i(LOG_CLASS,"Resived Json responce: "+res);
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            });
+//            thread.start();
+//
+//
+//        } catch (Exception e) {
+//            Log.i(LOG_CLASS,"error");
+//            Log.i(LOG_CLASS,"error:"+e.toString());
+//            e.printStackTrace();
+//        }
+//    }
 
 
     

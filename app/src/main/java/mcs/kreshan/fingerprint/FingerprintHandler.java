@@ -10,8 +10,11 @@ import android.os.CancellationSignal;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
+import org.json.JSONObject;
+
 import mcs.kreshan.threefacauth.FingerPrintSuccessActivity;
 //import mcs.kreshan.threefacauth.R;
+import mcs.kreshan.utill.SeqServiceConnection;
 import mcs.kreshan.utill.SequrityHelper;
 
 /**
@@ -22,6 +25,7 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
     public static final String LOG_CLASS = "MainActivity";
     private Context context;
     private static String imeiG,passG,bioTG;
+    static  String res="";
 
     // Constructor
     public FingerprintHandler(Context mContext) {
@@ -59,22 +63,47 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
     @Override
     public void onAuthenticationSucceeded(FingerprintManager.AuthenticationResult result) {
 ;
-    try {
-        Log.i(LOG_CLASS, "FingerprintHandler.onAuthenticationSucceeded==>" + imeiG + ":" + passG + ":" + bioTG);
-        String encPassword= SequrityHelper.encryptionByFingerPrientKey(imeiG+passG); //encrypet by finger prient
-        String msgSHA2= SequrityHelper.getSHA2(encPassword);
-        Log.i(LOG_CLASS,"MsgSHA2:"+msgSHA2);
+        try {
+            Log.i(LOG_CLASS, "onAuthenticationSucceeded:" + imeiG + ":" + passG + ":" + bioTG);
+            String encPassword= SequrityHelper.encryptionByFingerPrientKey(imeiG+passG); //encrypet by finger prient
+            Log.i(LOG_CLASS,"Finger print Enc:"+encPassword);
+            String msgSHA2= SequrityHelper.getSHA2(encPassword);
+            Log.i(LOG_CLASS,"MsgSHA2:"+msgSHA2);
 
-        String msgCertEnc= SequrityHelper.cncryptionByCert(msgSHA2);
-        Log.i(LOG_CLASS,"MsgCertEnc:"+msgCertEnc);
+            String msgCertEnc= SequrityHelper.cncryptionByCert(msgSHA2);
+            Log.i(LOG_CLASS,"Certificate Enc:"+msgCertEnc);
 
-        ((Activity) context).finish();
-        Intent intent = new Intent(context, FingerPrintSuccessActivity.class);
-        context.startActivity(intent);
-    }catch (Exception e){
-        Log.i(LOG_CLASS,e.toString());
-        e.printStackTrace();
-    }
+            // send and resived by web service
+            final JSONObject jsonObject = new JSONObject();
+            jsonObject.put("imei", imeiG);
+            jsonObject.put("enc_msg", msgCertEnc);
+                    Thread thread = new Thread(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            try  {
+                                Log.i(LOG_CLASS,"Send to Sequrity Service: "+jsonObject.toString());
+                                res= SeqServiceConnection.sendAndRec(jsonObject.toString());
+                                Log.i(LOG_CLASS,"Resived from Sequrity Service: "+res);
+                                if(res.equals("000")){
+                                    ((Activity) context).finish();
+                                    Intent intent = new Intent(context, FingerPrintSuccessActivity.class);
+                                    context.startActivity(intent);
+                                }
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                    thread.start();
+//            ((Activity) context).finish();
+//            Intent intent = new Intent(context, FingerPrintSuccessActivity.class);
+//            context.startActivity(intent);
+        }catch (Exception e){
+            Log.i(LOG_CLASS,e.toString());
+            e.printStackTrace();
+        }
     }
 
 
