@@ -6,6 +6,6 @@ package mcs.kreshan.utill;
 
 public class SysConfiguration {
 
-    public static final String CERTIFICATE_PATH             = "CERT_BIMPUTH";
+    public static final String CERTIFICATE_PATH             = "CERT_K";
     public static final String KEY_FILE_NAME                = "certificate.cer";
 }

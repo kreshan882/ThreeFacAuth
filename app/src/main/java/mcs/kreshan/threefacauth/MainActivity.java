@@ -18,6 +18,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import mcs.kreshan.utill.SeqServiceConnection;
+import mcs.kreshan.utill.SequrityHelper;
 
 import static android.Manifest.permission.READ_PHONE_STATE;
 
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         else {
             getImeiNumber();
         }
-
+        SequrityHelper.writeSSLCertificate(getApplicationContext());
 
         but.setOnClickListener(new View.OnClickListener() {
             @Override

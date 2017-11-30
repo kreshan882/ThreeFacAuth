@@ -1,5 +1,6 @@
 package mcs.kreshan.utill;
 
+import android.content.Context;
 import android.os.Environment;
 import android.security.keystore.KeyProperties;
 import android.security.keystore.UserNotAuthenticatedException;
@@ -10,6 +11,10 @@ import org.jpos.iso.ISOUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
@@ -70,4 +75,56 @@ public class SequrityHelper {
         return ISOUtil.hexString(res);
     }
 
+    public static void writeSSLCertificate(Context cn) {
+        try {
+            File sdCard = Environment.getExternalStorageDirectory();
+            File dir = new File(sdCard.getAbsolutePath() + "/"+ SysConfiguration.CERTIFICATE_PATH);
+            if(!dir.exists()){
+                dir.mkdir();
+            }
+            File file = new File(dir, SysConfiguration.KEY_FILE_NAME);
+            if(file.exists()){
+                file.delete();
+            }
+
+            if(!file.exists()){
+                FileOutputStream f = null;
+                InputStream in = null;
+
+                file.createNewFile();
+                try {
+                    f = new FileOutputStream(file);
+                    in = cn.getAssets().open(SysConfiguration.KEY_FILE_NAME);
+
+                    byte[] buffer = new byte[2048];
+                    int len1 = 0;
+                    while ((len1 = in.read(buffer)) > 0) {
+                        f.write(buffer, 0, len1);
+                    }
+
+                } catch (FileNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        if (in != null) {
+                            in.close();
+                        }
+                        if(f != null){
+                            f.close();
+                        }
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        } catch (IOException e) {
+            Log.i(LOG_CLASS,e.getMessage());
+            e.printStackTrace();
+        }
+    }
 }
