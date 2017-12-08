@@ -9,6 +9,6 @@ public class FingerPrintSuccessActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fingerprint_sucess);
+        setContentView(R.layout.registration_sucess);
     }
 }
