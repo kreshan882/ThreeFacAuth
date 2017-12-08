@@ -73,28 +73,28 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
         Log.i(LOG_CLASS,"MsgCertEnc:"+msgCertEnc);
 
         /////////////////////////
-//        final JSONObject jsonObject = new JSONObject();
-//        jsonObject.put("enc_msg", msgCertEnc);
-//
-//        Log.i(LOG_CLASS,"Sending json request: "+jsonObject.toString());
-//
-//        Thread thread = new Thread(new Runnable() {
-//
-//            @Override
-//            public void run() {
-//                try  {
-//                    res= SeqServiceConnection.sendAndRec(jsonObject.toString());
-//                    Log.i(LOG_CLASS,"Resived Json responce: "+res);
-//
-//                    ((Activity) context).finish();
-//                    Intent intent = new Intent(context, FingerPrintSuccessActivity.class);
-//                    context.startActivity(intent);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//        thread.start();
+        final JSONObject jsonObject = new JSONObject();
+        jsonObject.put("enc_msg", msgCertEnc);
+
+        Log.i(LOG_CLASS,"Sending json request: "+jsonObject.toString());
+
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try  {
+                    res= SeqServiceConnection.sendAndRec(jsonObject.toString());
+                    Log.i(LOG_CLASS,"Resived Json responce: "+res);
+
+                    ((Activity) context).finish();
+                    Intent intent = new Intent(context, FingerPrintSuccessActivity.class);
+                    context.startActivity(intent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
 
         /////////////////////
 
