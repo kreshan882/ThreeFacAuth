@@ -59,7 +59,7 @@ public class SequrityHelper {
         String res = ISOUtil.hexString(encodedhash);
         return res;
     }
-    public static String cncryptionByCert(String msg) throws Exception{
+    public static String encryptionByCert(String msg) throws Exception{
 
         CertificateFactory cf = CertificateFactory.getInstance("X.509");
         File sdCard = Environment.getExternalStorageDirectory();

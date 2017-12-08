@@ -10,8 +10,11 @@ import android.os.CancellationSignal;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
+import org.json.JSONObject;
+
 import mcs.kreshan.threefacauth.FingerPrintSuccessActivity;
 //import mcs.kreshan.threefacauth.R;
+import mcs.kreshan.utill.SeqServiceConnection;
 import mcs.kreshan.utill.SequrityHelper;
 
 /**
@@ -22,6 +25,7 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
     public static final String LOG_CLASS = "MainActivity";
     private Context context;
     private static String imeiG,passG,bioTG;
+    static  String res="";
 
     // Constructor
     public FingerprintHandler(Context mContext) {
@@ -65,12 +69,36 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
         String msgSHA2= SequrityHelper.getSHA2(encPassword);
         Log.i(LOG_CLASS,"MsgSHA2:"+msgSHA2);
 
-        String msgCertEnc= SequrityHelper.cncryptionByCert(msgSHA2);
+        String msgCertEnc= SequrityHelper.encryptionByCert(msgSHA2);
         Log.i(LOG_CLASS,"MsgCertEnc:"+msgCertEnc);
 
-        ((Activity) context).finish();
-        Intent intent = new Intent(context, FingerPrintSuccessActivity.class);
-        context.startActivity(intent);
+        /////////////////////////
+//        final JSONObject jsonObject = new JSONObject();
+//        jsonObject.put("enc_msg", msgCertEnc);
+//
+//        Log.i(LOG_CLASS,"Sending json request: "+jsonObject.toString());
+//
+//        Thread thread = new Thread(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                try  {
+//                    res= SeqServiceConnection.sendAndRec(jsonObject.toString());
+//                    Log.i(LOG_CLASS,"Resived Json responce: "+res);
+//
+//                    ((Activity) context).finish();
+//                    Intent intent = new Intent(context, FingerPrintSuccessActivity.class);
+//                    context.startActivity(intent);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//        thread.start();
+
+        /////////////////////
+
+
     }catch (Exception e){
         Log.i(LOG_CLASS,e.toString());
         e.printStackTrace();
