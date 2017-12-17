@@ -51,7 +51,7 @@ public class SeqServiceConnection {
 
     
     public static String sendAndRec(String req)throws Exception{
-        String res;
+        String res="000";
         Log.i(LOG_CLASS,"req>>>"+req);
         URL url = new URL("http://192.168.43.35:8080/ThreeFac_SEC/api/mobile_Reg");
         //URL url = new URL("http://127.0.0.1:8080/ThreeFac_SEC/api/mobile_Reg");

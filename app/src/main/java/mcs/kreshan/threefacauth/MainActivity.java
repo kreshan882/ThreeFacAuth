@@ -79,9 +79,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
 
                     }else{
-                        //SeqServiceConnection.sendK("ssssssss","rrrrrrrrr");
-
-                        Toast.makeText(MainActivity.this,"please give your:"+rBut,Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this,"Face reorganization on contraction:"+rBut,Toast.LENGTH_LONG).show();
                     }
                 }else{
                     Toast.makeText(MainActivity.this,"password miss match",Toast.LENGTH_LONG).show();
@@ -94,25 +92,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-//
-//    public void onButtonClick(View v){//alt+enter //set propoty onClick onbutton click
-//        Log.i(LOG_CLASS,"onButtonClock");
-//        EditText un=(EditText)findViewById(R.id.editText3_un);
-//        EditText pw=(EditText)findViewById(R.id.editText4_pw);
-//        TextView res=(TextView) findViewById(R.id.textView3_res);
-//        Log.i(LOG_CLASS,"un"+un);
-//        if(un.equals("admin") && pw.equals("1234")){
-//            res.setText("sucess login");
-//        }else{
-//            res.setText("fail login");
-//        }
-//
-//    }
     @Override
     protected void onDestroy() {
         super.onDestroy();

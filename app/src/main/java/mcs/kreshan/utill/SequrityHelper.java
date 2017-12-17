@@ -20,6 +20,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
 
@@ -28,6 +29,7 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
 
 import mcs.kreshan.threefacauth.FingerPrintActivity;
 
@@ -38,15 +40,29 @@ import mcs.kreshan.threefacauth.FingerPrintActivity;
 public class SequrityHelper {
     public static final String LOG_CLASS = "MainActivity";
 
-    public static String encryptionByFingerPrientKey(String pin) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException, BadPaddingException, IllegalBlockSizeException {
+    public static String encryptionByFingerPrientKey(String pin) throws Exception {
         String encryptedPassword="";
         try {
+            Log.i(LOG_CLASS,"encryptionByFingerPrientKey(plane) : "+pin);
             SecretKey secretKey = FingerPrintActivity.createKey();
             Cipher cipher = Cipher.getInstance(KeyProperties.KEY_ALGORITHM_AES + "/" + KeyProperties.BLOCK_MODE_CBC + "/" + KeyProperties.ENCRYPTION_PADDING_PKCS7);
             cipher.init(Cipher.ENCRYPT_MODE, secretKey);
-            byte[] passwordBytes = pin.getBytes("UTF-8");
+            byte[] passwordBytes = ISOUtil.hex2byte(pin);   //pin.getBytes("UTF-8");
             byte[] encryptedPasswordBytes = cipher.doFinal(passwordBytes);
-            encryptedPassword = Base64.encodeToString(encryptedPasswordBytes, Base64.DEFAULT);
+            encryptedPassword = ISOUtil.hexString(encryptedPasswordBytes);   //Base64.encodeToString(encryptedPasswordBytes, Base64.DEFAULT);
+            Log.i(LOG_CLASS,"encryptionByFingerPrientKey(encrypted) : "+encryptedPassword);
+
+
+            cipher.init(Cipher.DECRYPT_MODE, secretKey);
+            byte[] decryptedPasswordBytes = cipher.doFinal(encryptedPasswordBytes);
+            Log.i(LOG_CLASS,"encryptionByFingerPrientKey(decrypeted) : "+ISOUtil.hexString(decryptedPasswordBytes));
+
+//            SecureRandom r = new SecureRandom();
+//            byte[] ivBytes = new byte[16];
+//            r.nextBytes(ivBytes);
+//            cipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(ivBytes));
+//            byte[] decryptedBytes = cipher.doFinal(encryptedPasswordBytes);
+
         } catch (UserNotAuthenticatedException e) {
             e.printStackTrace();
         }

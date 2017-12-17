@@ -66,11 +66,14 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
     try {
         Log.i(LOG_CLASS, "FingerprintHandler.onAuthenticationSucceeded==>" + imeiG + ":" + passG + ":" + bioTG);
         String encPassword= SequrityHelper.encryptionByFingerPrientKey(imeiG+passG); //encrypet by finger prient
-        String msgSHA2= SequrityHelper.getSHA2(encPassword);
-        Log.i(LOG_CLASS,"MsgSHA2:"+msgSHA2);
-
-        String msgCertEnc= SequrityHelper.encryptionByCert(msgSHA2);
+        Log.i(LOG_CLASS,"fingerprint:"+encPassword);
+//        String msgSHA2= SequrityHelper.getSHA2(encPassword);
+//        Log.i(LOG_CLASS,"MsgSHA2:"+msgSHA2);
+//
+        String msgCertEnc= SequrityHelper.encryptionByCert(encPassword);
         Log.i(LOG_CLASS,"MsgCertEnc:"+msgCertEnc);
+
+
 
         /////////////////////////
         final JSONObject jsonObject = new JSONObject();

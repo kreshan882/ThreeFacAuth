@@ -66,19 +66,18 @@ public class FingerPrintActivity extends AppCompatActivity  {
         textView = (TextView) findViewById(R.id.errorText);
 
         if(!fingerprintManager.isHardwareDetected()){
-            textView.setText("Your Device does not have a Fingerprint Sensor");
+            textView.setText("No finger print H/W");
         }else {
-            // Checks whether fingerprint permission is set on manifest
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
-                textView.setText("Fingerprint authentication permission not enabled");
+                textView.setText("No finger print permission");
             }else{
                 // Check whether at least one fingerprint is registered
                 if (!fingerprintManager.hasEnrolledFingerprints()) {
-                    textView.setText("Register at least one fingerprint in Settings");
+                    textView.setText("No finger print registered");
                 }else{
                     // Checks whether lock screen security is enabled or not
                     if (!keyguardManager.isKeyguardSecure()) {
-                        textView.setText("Lock screen security not enabled in Settings");
+                        textView.setText("No Lock screen security setting enabled");
                     }else{
                         generateKey();
 
