@@ -5,6 +5,7 @@ import android.annotation.TargetApi;
 import android.app.KeyguardManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,6 +36,8 @@ import javax.crypto.SecretKey;
 
 import mcs.kreshan.fingerprint.FingerprintHandler;
 
+import static mcs.kreshan.threefacauth.R.color.redk;
+
 /**
  * Created by kreshan88 on 8/27/2017.
  */
@@ -63,7 +66,7 @@ public class FingerPrintActivity extends AppCompatActivity  {
         KeyguardManager keyguardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
         FingerprintManager fingerprintManager = (FingerprintManager) getSystemService(FINGERPRINT_SERVICE);
 
-        textView = (TextView) findViewById(R.id.errorText);
+        textView = (TextView) findViewById(R.id.res_desc);
 
         if(!fingerprintManager.isHardwareDetected()){
             textView.setText("No finger print H/W");
@@ -82,7 +85,8 @@ public class FingerPrintActivity extends AppCompatActivity  {
                         generateKey();
 
                         if (cipherInit()) {
-
+                            textView.setTextColor(getResources().getColor(R.color.green));
+                            textView.setText("please give your fingerprint");
                             FingerprintManager.CryptoObject cryptoObject = new FingerprintManager.CryptoObject(cipher);
                             FingerprintHandler helper = new FingerprintHandler(this);
                             helper.startAuth(fingerprintManager, cryptoObject,imei,pass,bioT);

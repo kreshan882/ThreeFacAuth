@@ -9,11 +9,14 @@ import android.hardware.fingerprint.FingerprintManager;
 import android.os.CancellationSignal;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+import android.widget.TextView;
 
 import org.json.JSONObject;
 
+import mcs.kreshan.threefacauth.FingerPrintActivity;
 import mcs.kreshan.threefacauth.FingerPrintSuccessActivity;
 //import mcs.kreshan.threefacauth.R;
+import mcs.kreshan.threefacauth.R;
 import mcs.kreshan.utill.SeqServiceConnection;
 import mcs.kreshan.utill.SequrityHelper;
 
@@ -57,6 +60,9 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
 
     @Override
     public void onAuthenticationFailed() {
+        TextView txtView = (TextView) ((Activity)context).findViewById(R.id.res_desc);
+        txtView.setTextColor(context.getResources().getColor(R.color.redk));
+        txtView.setText("Fingerprint Authentication failed...");
         Log.i(LOG_CLASS,"Fingerprint Authentication failed.");
     }
 
@@ -64,7 +70,7 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
     public void onAuthenticationSucceeded(FingerprintManager.AuthenticationResult result) {
 ;
     try {
-        Log.i(LOG_CLASS, "FingerprintHandler.onAuthenticationSucceeded==>" + imeiG + ":" + passG + ":" + bioTG);
+        Log.i(LOG_CLASS, "FingerprintHandler.onAuthenticationSucceeded => " + imeiG + ":" + passG + ":" + bioTG);
         String encPassword= SequrityHelper.encryptionByFingerPrientKey(imeiG+passG); //encrypet by finger prient
         Log.i(LOG_CLASS,"fingerprint:"+encPassword);
 //        String msgSHA2= SequrityHelper.getSHA2(encPassword);
@@ -72,8 +78,6 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
 //
         String msgCertEnc= SequrityHelper.encryptionByCert(encPassword);
         Log.i(LOG_CLASS,"MsgCertEnc:"+msgCertEnc);
-
-
 
         /////////////////////////
         final JSONObject jsonObject = new JSONObject();
@@ -87,7 +91,7 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
             public void run() {
                 try  {
                     res= SeqServiceConnection.sendAndRec(jsonObject.toString());
-                    Log.i(LOG_CLASS,"Resived Json responce: "+res);
+                    Log.i(LOG_CLASS,"Received Json response: "+res);
 
                     ((Activity) context).finish();
                     Intent intent = new Intent(context, FingerPrintSuccessActivity.class);

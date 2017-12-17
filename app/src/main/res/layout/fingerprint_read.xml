@@ -24,46 +24,33 @@
             android:layout_marginBottom="30dp"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/purplek"
+            android:textColor="@color/whitek"
             android:textSize="24sp"
-            android:text="@string/fp_title"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"/>
-
-
+            android:textAlignment="center"
+            android:gravity="center"
+            android:id="@+id/namee"
+            android:text="waiting for fingerprint"
+            android:layout_margin="16dp"
+            android:paddingEnd="30dp"
+            android:paddingStart="30dp" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/bluek"
-            android:textSize="16sp"
+            android:textColor="@color/redk"
+            android:textSize="20sp"
             android:textAlignment="center"
             android:gravity="center"
-            android:id="@+id/desc"
-            android:text="@string/app_name"
+            android:id="@+id/res_desc"
+            android:text="waiting"
             android:layout_margin="16dp"
             android:paddingEnd="30dp"
-            android:paddingStart="30dp"/>
+            android:paddingStart="30dp"
+            android:layout_alignParentBottom="true"/>
 
 
     </LinearLayout>
-
-
-    <TextView
-        android:id="@+id/errorText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/redk"
-        android:textSize="14sp"
-        android:text="aaaaaaaaaaa"
-        android:layout_marginLeft="16dp"
-        android:textAlignment="center"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="26dp"
-        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>
 

@@ -53,15 +53,14 @@ public class SequrityHelper {
             Log.i(LOG_CLASS,"encryptionByFingerPrientKey(encrypted) : "+encryptedPassword);
 
 
-            cipher.init(Cipher.DECRYPT_MODE, secretKey);
-            byte[] decryptedPasswordBytes = cipher.doFinal(encryptedPasswordBytes);
-            Log.i(LOG_CLASS,"encryptionByFingerPrientKey(decrypeted) : "+ISOUtil.hexString(decryptedPasswordBytes));
+//            cipher.init(Cipher.DECRYPT_MODE, secretKey);
+//            byte[] decryptedPasswordBytes = cipher.doFinal(encryptedPasswordBytes);
+//            Log.i(LOG_CLASS,"encryptionByFingerPrientKey(decrypeted) : "+ISOUtil.hexString(decryptedPasswordBytes));
 
-//            SecureRandom r = new SecureRandom();
-//            byte[] ivBytes = new byte[16];
-//            r.nextBytes(ivBytes);
-//            cipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(ivBytes));
+
+//            cipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(encryptedPasswordBytes));
 //            byte[] decryptedBytes = cipher.doFinal(encryptedPasswordBytes);
+//            Log.i(LOG_CLASS,"encryptionByFingerPrientKey(decrypeted) : "+ISOUtil.hexString(decryptedBytes));
 
         } catch (UserNotAuthenticatedException e) {
             e.printStackTrace();
