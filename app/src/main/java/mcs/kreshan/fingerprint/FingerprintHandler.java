@@ -93,7 +93,7 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
                     res= SeqServiceConnection.sendAndRec(jsonObject.toString());
                     Log.i(LOG_CLASS,"Received Json response: "+res);
 
-                    ((Activity) context).finish();
+                  //  ((Activity) context).finish();
                     Intent intent = new Intent(context, FingerPrintSuccessActivity.class);
                     context.startActivity(intent);
                 } catch (Exception e) {

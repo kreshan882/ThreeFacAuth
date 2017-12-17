@@ -35,7 +35,13 @@
         <activity android:name="mcs.kreshan.threefacauth.FingerPrintSuccessActivity"
             android:parentActivityName="mcs.kreshan.threefacauth.MainActivity"
             android:screenOrientation="portrait"
-            android:label="Finger Prient sucess" >
+            android:label="Finger Prient success" >
+        </activity>
+
+        <activity android:name="mcs.kreshan.threefacauth.HomeActivity"
+            android:parentActivityName="mcs.kreshan.threefacauth.FingerPrintSuccessActivity"
+            android:screenOrientation="portrait"
+            android:label="Home" >
         </activity>
     </application>
 
