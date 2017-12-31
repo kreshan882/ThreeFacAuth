@@ -90,7 +90,7 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
             @Override
             public void run() {
                 try  {
-                    res= SeqServiceConnection.sendAndRec(jsonObject.toString());
+                    res= SeqServiceConnection.sendAndRec(jsonObject.toString(),"mobile_Reg");
                     Log.i(LOG_CLASS,"Received Json response: "+res);
 
                   //  ((Activity) context).finish();

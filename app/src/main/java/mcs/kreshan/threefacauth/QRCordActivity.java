@@ -2,7 +2,9 @@ package mcs.kreshan.threefacauth;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -14,6 +16,9 @@ import android.widget.Toast;
 
 import com.google.zxing.Result;
 
+import org.json.JSONObject;
+
+import mcs.kreshan.utill.SeqServiceConnection;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 /**
@@ -124,29 +129,38 @@ public class QRCordActivity extends AppCompatActivity implements ZXingScannerVie
     }
     @Override
     public void handleResult(Result result) {
-        final String resultmy = result.getText();
-        Log.i(LOG_CLASS,">>>>>>:"+resultmy);
-
-//        AlertDialog.Builder builder=new AlertDialog.Builder(this);
-//        builder.setTitle("scan result");
-//        builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                scannerView.resumeCameraPreview(MainActivity.this);
-//            }
-//        });
-//        builder.setNegativeButton("cancle", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                Intent interent=new Intent(Intent.ACTION_VIEW, Uri.parse(resultmy));//go to that url
-//                startActivity(interent);
-//            }
-//        });
-//        builder.setMessage(resultmy);
-//        AlertDialog alert=builder.create();
-//        alert.show();
+        try {
+            String resultmy = result.getText();
+            Log.i(LOG_CLASS, ">>>>>>:" + resultmy.length());
+            Log.i(LOG_CLASS, ">>>>>>:" + resultmy);
 
 
+            final JSONObject jsonObject = new JSONObject();
+            jsonObject.put("enc_msg", resultmy);
+
+            Log.i(LOG_CLASS, "Sending json request: " + jsonObject.toString());
+
+            Thread thread = new Thread(new Runnable() {
+
+                @Override
+                public void run() {
+                    try {
+                        String res = SeqServiceConnection.sendAndRec(jsonObject.toString(), "send_qr_detail");
+                        Log.i(LOG_CLASS, "Received Json response: " + res);
+                        Toast.makeText(QRCordActivity.this,"qr send success",Toast.LENGTH_LONG).show();
+
+                        Intent intent=new Intent(QRCordActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            thread.start();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 
