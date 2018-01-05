@@ -148,7 +148,7 @@ public class QRCordActivity extends AppCompatActivity implements ZXingScannerVie
                         String res = SeqServiceConnection.sendAndRec(jsonObject.toString(), "send_qr_detail");
                         Log.i(LOG_CLASS, "Received Json response: " + res);
                         Toast.makeText(QRCordActivity.this,"qr send success",Toast.LENGTH_LONG).show();
-
+                        Thread.sleep(3000);
                         Intent intent=new Intent(QRCordActivity.this, HomeActivity.class);
                         startActivity(intent);
                     } catch (Exception e) {

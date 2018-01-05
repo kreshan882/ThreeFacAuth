@@ -20,10 +20,37 @@
         android:text="Home Functions"/>
 
     <Button
-        android:id="@+id/read_qrcord_but"
+        android:id="@+id/but_add_web_system"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Read QR Code" />
+        android:text="Add Web Systems" />
+    <Button
+        android:id="@+id/but_read_qrcord"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Read QR Code(Login)" />
+
+    <Button
+        android:id="@+id/but_chng_pass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="change passcord" />
+
+    <Button
+        android:id="@+id/but_chng_bio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="change biometric" />
+
+    <Button
+        android:id="@+id/but_chng_device"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="change device" />
 
 </LinearLayout>

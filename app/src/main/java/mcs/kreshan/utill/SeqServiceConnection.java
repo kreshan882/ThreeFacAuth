@@ -50,24 +50,30 @@ public class SeqServiceConnection {
 
 
     
-    public static String sendAndRec(String req,String funct)throws Exception{
+    public static String sendAndRec(String req,String funct){
         String res="000";
-        Log.i(LOG_CLASS,"req>>>"+req);
-        //////        URL url = new URL("http://192.168.43.35:8080/ThreeFac_SEC/api/mobile_Reg");
-        URL url = new URL("http://192.168.43.35:8080/ThreeFac_SEC/api/"+funct);
-//        //URL url = new URL("http://127.0.0.1:8080/ThreeFac_SEC/api/"+funct);
-//        URLConnection connection = url.openConnection();
-//        connection.setDoOutput(true);
-//        connection.setRequestProperty("Content-Type", "application/json");
-//        connection.setConnectTimeout(10000);
-//        connection.setReadTimeout(5000);
-//        OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
-//        out.write(req);
-//        out.close();
+        try{
+            Log.i(LOG_CLASS,"req>>>"+req);
+//            URL url = new URL("http://192.168.43.35:8080/ThreeFac_SEC/api/"+funct);//mobile_Reg, send_qr_detail, login_validate
+//            URLConnection connection = url.openConnection();
+//            connection.setDoOutput(true);
+//            connection.setRequestProperty("Content-Type", "application/json");
+//            connection.setConnectTimeout(10000);
+//            connection.setReadTimeout(5000);
+//            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
+//            out.write(req);
+//            out.close();
 //
-//        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-//        res=in.readLine();
-//        in.close();
+//            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+//            res=in.readLine();
+//            in.close();
+            Log.i(LOG_CLASS,"res>>>"+res);
+        }catch (Exception e){
+            res="000";
+            Log.i(LOG_CLASS,"exception::"+e.getMessage());
+            //e.printStackTrace();
+        }
+
         return res;
     }
 }
